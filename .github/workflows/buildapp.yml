@@ -58,7 +58,7 @@ jobs:
       - name: Prepare YouTube iPA
         id: prepare_youtube_before
         run: |
-          wget "$YOUTUBE_URL" --no-verbose -O main/YouTube.ipa
+          wget "${inputs.decrypted_youtube_url}" --no-verbose -O main/YouTube.ipa
           cd ${{ github.workspace }}/main
           mv YouTube.ipa YouTube.zip
           unzip -q YouTube.zip
