@@ -54,19 +54,7 @@ jobs:
         with:
           path: main
           submodules: recursive
-      
-      - name: Prepare YouTube iPA
-        id: prepare_youtube_before
-        run: |
-          wget "${inputs.decrypted_youtube_url}" --no-verbose -O main/YouTube.ipa
-          cd ${{ github.workspace }}/main
-          mv YouTube.ipa YouTube.zip
-          unzip -q YouTube.zip
-          youtube_version=$(defaults read "$(pwd)/Payload/YouTube.app/Info" CFBundleVersion)
-          echo "==> YouTube v$youtube_version downloaded!"
-          sed -i '' "17s#.*#YOUTUBE_VERSION = ${youtube_version}#g" Makefile
-          echo "youtube_version=${youtube_version}" >> $GITHUB_OUTPUT
-          
+            
       - name: Install Dependencies
         run: brew install ldid dpkg make
 
@@ -117,9 +105,9 @@ jobs:
       - name: Prepare YouTube iPA
         id: prepare_youtube
         run: |
-          wget "$YOUTUBE_URL" --no-verbose -O main/YouTube.ipa
-          cd ${{ github.workspace }}/main
-          mv YouTube.ipa YouTube.zip
+          #wget "$YOUTUBE_URL" --no-verbose -O main/YouTube.ipa
+          cd ${{ github.workspace }}/main/YT
+          mv *.ipa YouTube.zip
           unzip -q YouTube.zip
           youtube_version=$(defaults read "$(pwd)/Payload/YouTube.app/Info" CFBundleVersion)
           echo "==> YouTube v$youtube_version downloaded!"
